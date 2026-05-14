@@ -5,7 +5,7 @@ A scrapbook-style keepsake — a private webpage showing the 12 video messages f
 ## What's where
 
 ```
-public/           Static site (deployed to GitHub Pages)
+docs/           Static site (deployed to GitHub Pages)
   index.html        Landing screen with the handwritten note
   gallery.html      11 friend cards
   styles.css        All styling
@@ -31,7 +31,7 @@ scripts/
    git remote add origin https://github.com/<you>/<repo>.git
    git push -u origin main
    ```
-4. On GitHub, go to **Settings → Pages**, set **Source: Deploy from a branch**, **Branch: main**, **Folder: /public**. Save.
+4. On GitHub, go to **Settings → Pages**, set **Source: Deploy from a branch**, **Branch: main**, **Folder: /docs**. Save.
 5. Wait ~1 minute. Your site is live at `https://<you>.github.io/<repo>/` (the URL appears on the Pages settings page).
 
 ## Uploading the videos
@@ -41,11 +41,11 @@ scripts/
 ./scripts/upload-release.ps1 -Repo "Jeffy/<repo>"
 ```
 
-The second command prints the `VIDEO_BASE_URL` to paste into `public/friends.js`. Commit + push the change and GitHub Pages will redeploy in ~30 seconds.
+The second command prints the `VIDEO_BASE_URL` to paste into `docs/friends.js`. Commit + push the change and GitHub Pages will redeploy in ~30 seconds.
 
 ## Updating names / note text
 
-Edit `public/friends.js`:
+Edit `docs/friends.js`:
 
 - `window.SITE.herName` — her name as displayed.
 - `window.SITE.noteLines` — array of lines on the landing screen.
@@ -66,4 +66,4 @@ python -m http.server 5173 --directory public
 
 ## If you want to give her an offline copy
 
-Once the videos are uploaded to GitHub Releases, you can also zip the `public/` folder + the `videos/` folder together, edit `friends.js` to point `VIDEO_BASE_URL` at the relative path `./videos`, and she has a self-contained folder she can keep forever.
+Once the videos are uploaded to GitHub Releases, you can also zip the `docs/` folder + the `videos/` folder together, edit `friends.js` to point `VIDEO_BASE_URL` at the relative path `./videos`, and she has a self-contained folder she can keep forever.
