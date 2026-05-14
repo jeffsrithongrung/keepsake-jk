@@ -11,7 +11,7 @@ window.SITE = {
     "They had a lot to say."
   ],
   petPhotos: [
-    { src: "img/pet-cat.jpg", alt: "our cat with the ring", caption: "mom please say yes to dad" },
+    { src: "img/pet-cat.jpg", alt: "our cat with the ring", caption: "mom you're actually my favorite" },
     { src: "img/pet-dog.jpg", alt: "our dog with the ring", caption: "I've wanted a mom my whole life" }
   ],
 };
