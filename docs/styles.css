@@ -297,6 +297,8 @@ body.gallery { padding: 56px 20px 80px; }
 .card-player video {
   width: 100%;
   height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
   display: block;
   border-radius: 4px;
   background: #000;

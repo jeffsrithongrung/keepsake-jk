@@ -30,7 +30,16 @@ function renderGallery() {
   });
 }
 
+function closeAllOtherCards(except) {
+  document.querySelectorAll('.card[data-state="open"]').forEach((other) => {
+    if (other === except) return;
+    const otherVideo = other.querySelector("video");
+    closeCard(other, otherVideo);
+  });
+}
+
 function openCard(card, video, friend) {
+  closeAllOtherCards(card);
   // Set src only on first open so we don't fetch 11 videos up front.
   if (!video.src) {
     if (window.VIDEO_BASE_URL) {

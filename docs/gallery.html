@@ -15,9 +15,8 @@
 </head>
 <body class="gallery">
   <header class="gallery-header">
-    <p class="gallery-eyebrow">the people who love you</p>
-    <h1 class="gallery-title" id="galleryTitle">for —</h1>
-    <p class="gallery-sub">tap any card to listen. they're long — pour something, take your time.</p>
+    <h1 class="gallery-title" id="galleryTitle">—</h1>
+    <p class="gallery-sub">Tap any card to hear from someone who loves you.</p>
   </header>
 
   <main class="cards" id="cards" aria-label="friend videos"></main>
@@ -42,7 +41,7 @@
 
   <script src="app.js"></script>
   <script>
-    document.getElementById("galleryTitle").textContent = "for " + window.SITE.herName;
+    document.getElementById("galleryTitle").textContent = window.SITE.herName;
     document.title = "for " + window.SITE.herName + " · the people";
     renderGallery();
   </script>

@@ -12,10 +12,12 @@ param(
   [string]$Tag = "v1"
 )
 
-$ErrorActionPreference = "Stop"
-$videos = Get-ChildItem -Path "$PSScriptRoot\..\videos" -Filter "friend-*.mp4" | Sort-Object Name
+# Note: don't set ErrorActionPreference=Stop here. Windows PowerShell wraps native-command
+# stderr in ErrorRecords, which would make harmless "release not found" output halt the script.
+
+$videos = Get-ChildItem -Path "$PSScriptRoot\..\videos" -Filter "*.mp4" | Sort-Object Name
 if ($videos.Count -eq 0) {
-  Write-Error "No friend-*.mp4 files in ./videos. Run rename-videos.ps1 first."
+  Write-Host "No *.mp4 files in ./videos. Run rename-videos.ps1 first." -ForegroundColor Red
   exit 1
 }
 
@@ -23,16 +25,18 @@ Write-Host "About to upload $($videos.Count) videos to $Repo release $Tag"
 $total = ($videos | Measure-Object Length -Sum).Sum / 1MB
 Write-Host ("Total size: {0:N0} MB" -f $total)
 
-# Create the release if it doesn't exist (idempotent: --notes "" so it doesn't prompt)
-gh release view $Tag --repo $Repo *> $null
+# Create the release if it doesn't exist. We check via exit code only; suppress stderr.
+$null = cmd /c "gh release view $Tag --repo $Repo 1>nul 2>nul"
 if ($LASTEXITCODE -ne 0) {
   Write-Host "Creating release $Tag..."
   gh release create $Tag --repo $Repo --title "Keepsake videos" --notes "Private video assets."
+  if ($LASTEXITCODE -ne 0) { Write-Host "Failed to create release." -ForegroundColor Red; exit 1 }
 }
 
 foreach ($v in $videos) {
   Write-Host "Uploading $($v.Name) ($([math]::Round($v.Length/1MB)) MB)..."
   gh release upload $Tag $v.FullName --repo $Repo --clobber
+  if ($LASTEXITCODE -ne 0) { Write-Host "  upload failed for $($v.Name)" -ForegroundColor Red }
 }
 
 $user, $name = $Repo -split "/"
