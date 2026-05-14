@@ -12,7 +12,7 @@ window.SITE = {
   ],
   petPhotos: [
     { src: "img/pet-cat.jpg", alt: "our cat with the ring", caption: "mom you're actually my favorite" },
-    { src: "img/pet-dog.jpg", alt: "our dog with the ring", caption: "I've wanted a mom my whole life" }
+    { src: "img/pet-dog.jpg", alt: "our dog with the ring", caption: "dad is #2 compared to you" }
   ],
 };
 
