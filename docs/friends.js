@@ -35,4 +35,4 @@ window.FRIENDS = [
 // Once you've created the GitHub Release and uploaded the MP4s, set this to:
 //   https://github.com/Jeffy/<repo>/releases/download/v1
 // Leave blank during development; cards will show a placeholder.
-window.VIDEO_BASE_URL = "https://github.com/jeffsrithongrung/keepsake-jk/releases/download/v1";
+window.VIDEO_BASE_URL = "https://red-disk-8d36keepsake-videos.jeffsrithongrung.workers.dev";
