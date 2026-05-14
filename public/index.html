@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="robots" content="noindex,nofollow,noarchive" />
+  <meta name="referrer" content="no-referrer" />
+  <title>for you</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='13' font-size='14'%3E%E2%9C%89%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="friends.js"></script>
+</head>
+<body class="landing">
+  <main class="landing-stage" id="stage">
+    <div class="landing-card">
+      <div class="landing-pets" id="pets" aria-hidden="true"></div>
+      <p class="landing-greeting">for</p>
+      <h1 class="landing-name" id="herName">—</h1>
+      <div class="landing-note" id="note"></div>
+      <button class="open-link" id="enterBtn" type="button" aria-label="open">
+        <span class="open-link-text">open</span>
+        <svg class="open-link-stroke" viewBox="0 0 120 14" aria-hidden="true">
+          <path d="M2,8 C20,2 50,2 60,7 C75,12 95,12 118,6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+  </main>
+  <script src="app.js"></script>
+  <script>
+    document.getElementById("herName").textContent = window.SITE.herName;
+    document.title = "for " + window.SITE.herName;
+    const petsEl = document.getElementById("pets");
+    (window.SITE.petPhotos || []).forEach((pet, i) => {
+      const fig = document.createElement("figure");
+      fig.className = "polaroid polaroid-" + (i + 1);
+      fig.style.animationDelay = (0.2 + i * 0.25) + "s";
+      const img = document.createElement("img");
+      img.src = pet.src;
+      img.alt = pet.alt || "";
+      img.loading = "eager";
+      fig.appendChild(img);
+      if (pet.caption) {
+        const cap = document.createElement("figcaption");
+        cap.textContent = pet.caption;
+        fig.appendChild(cap);
+      }
+      petsEl.appendChild(fig);
+    });
+    const noteEl = document.getElementById("note");
+    window.SITE.noteLines.forEach((line, i) => {
+      const p = document.createElement("p");
+      p.className = "note-line";
+      p.style.animationDelay = (1.2 + i * 0.6) + "s";
+      p.textContent = line || " ";
+      noteEl.appendChild(p);
+    });
+    document.getElementById("enterBtn").addEventListener("click", () => {
+      document.body.classList.add("leaving");
+      setTimeout(() => { window.location.href = "gallery.html"; }, 650);
+    });
+  </script>
+</body>
+</html>

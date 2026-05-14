@@ -1,0 +1,7 @@
+# Local-only — never commit the videos (they live on GitHub Releases instead).
+videos/
+*.mp4
+*.m4a
+*.vtt
+.DS_Store
+Thumbs.db

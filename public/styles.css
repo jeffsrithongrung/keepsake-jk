@@ -1,0 +1,347 @@
+:root {
+  --paper: #FAF5EE;
+  --paper-shadow: #EDE3D2;
+  --ink: #2B2420;
+  --ink-soft: #5C5048;
+  --accent: #B8624B;
+  --serif: "EB Garamond", Georgia, "Times New Roman", serif;
+  --hand: "Caveat", "Bradley Hand", "Brush Script MT", cursive;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  min-height: 100vh;
+  background-image:
+    radial-gradient(circle at 18% 22%, rgba(0,0,0,0.025) 0 1px, transparent 1px),
+    radial-gradient(circle at 78% 64%, rgba(0,0,0,0.020) 0 1px, transparent 1px),
+    radial-gradient(circle at 40% 88%, rgba(0,0,0,0.018) 0 1px, transparent 1px);
+  background-size: 220px 220px, 320px 320px, 180px 180px;
+}
+
+/* ---------- LANDING ---------- */
+
+body.landing {
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.landing-stage {
+  width: 100%;
+  max-width: 680px;
+  animation: fadeUp 1.2s ease-out both;
+}
+
+.landing-card {
+  text-align: center;
+  padding: 32px 24px 48px;
+}
+
+/* ---------- LANDING : pet polaroids ---------- */
+
+.landing-pets {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 18px;
+  margin: 0 auto 28px;
+  max-width: 100%;
+  perspective: 800px;
+}
+
+.polaroid {
+  margin: 0;
+  background: #FFFEFB;
+  padding: 10px 10px 18px;
+  box-shadow:
+    0 1px 0 rgba(0,0,0,0.05),
+    0 16px 28px -16px rgba(60,40,20,0.45);
+  border-radius: 2px;
+  width: clamp(140px, 28vw, 200px);
+  opacity: 0;
+  transform: translateY(16px) rotate(var(--tilt, 0deg));
+  animation: polaroidIn 0.9s cubic-bezier(0.2, 0.7, 0.1, 1.05) forwards;
+  transition: transform 280ms ease, box-shadow 280ms ease;
+}
+
+.polaroid img {
+  display: block;
+  width: 100%;
+  height: clamp(140px, 28vw, 200px);
+  object-fit: cover;
+  border-radius: 1px;
+  background: #E8E2D8;
+}
+
+.polaroid figcaption {
+  font-family: var(--hand);
+  font-size: 20px;
+  color: var(--ink-soft);
+  margin-top: 8px;
+  text-align: center;
+  line-height: 1.1;
+}
+
+.polaroid-1 { --tilt: -5deg; }
+.polaroid-2 { --tilt: 5deg; }
+
+.polaroid:hover { transform: translateY(-2px) rotate(0); box-shadow: 0 1px 0 rgba(0,0,0,0.06), 0 22px 36px -18px rgba(60,40,20,0.5); }
+
+@keyframes polaroidIn {
+  to { opacity: 1; transform: translateY(0) rotate(var(--tilt, 0deg)); }
+}
+
+@media (max-width: 420px) {
+  .landing-pets { gap: 10px; }
+}
+
+.landing-greeting {
+  font-family: var(--hand);
+  font-size: 36px;
+  color: var(--ink-soft);
+  margin: 0 0 -4px;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  animation: fadeIn 1s ease-out 0.2s forwards;
+}
+
+.landing-name {
+  font-family: var(--hand);
+  font-size: clamp(72px, 14vw, 132px);
+  font-weight: 700;
+  margin: 0 0 28px;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+  line-height: 0.95;
+  opacity: 0;
+  animation: fadeIn 1.2s ease-out 0.4s forwards;
+}
+
+.landing-note {
+  margin: 28px auto 44px;
+  max-width: 28em;
+}
+
+.note-line {
+  font-family: var(--serif);
+  font-size: clamp(18px, 2.4vw, 22px);
+  line-height: 1.5;
+  margin: 0 0 6px;
+  color: var(--ink);
+  opacity: 0;
+  transform: translateY(8px);
+  animation: noteRise 0.9s ease-out forwards;
+}
+
+.note-line:empty::before { content: "\00a0"; }
+
+.open-link {
+  appearance: none;
+  background: transparent;
+  border: none;
+  color: var(--accent);
+  font-family: var(--hand);
+  font-size: 38px;
+  cursor: pointer;
+  padding: 8px 16px 16px;
+  margin-top: 24px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  opacity: 0;
+  animation: fadeIn 0.9s ease-out 3.6s forwards;
+  transition: transform 200ms ease, color 200ms ease;
+}
+
+.open-link:hover { color: var(--ink); transform: translateY(-1px); }
+.open-link:focus-visible { outline: 2px dashed var(--accent); outline-offset: 6px; border-radius: 4px; }
+
+.open-link-stroke { width: 120px; height: 14px; color: currentColor; }
+
+body.landing.leaving { animation: fadeOutScale 0.55s ease-in forwards; }
+
+/* ---------- GALLERY ---------- */
+
+body.gallery { padding: 56px 20px 80px; }
+
+.gallery-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 48px;
+  animation: fadeUp 0.9s ease-out both;
+}
+
+.gallery-eyebrow {
+  font-family: var(--hand);
+  font-size: 28px;
+  color: var(--ink-soft);
+  margin: 0 0 -4px;
+}
+
+.gallery-title {
+  font-family: var(--hand);
+  font-size: clamp(56px, 9vw, 92px);
+  font-weight: 700;
+  margin: 0 0 12px;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.gallery-sub {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--ink-soft);
+  font-size: 18px;
+  margin: 0 auto;
+  max-width: 32em;
+}
+
+.cards {
+  max-width: 1180px;
+  margin: 0 auto;
+  column-count: 3;
+  column-gap: 24px;
+}
+
+@media (max-width: 960px) { .cards { column-count: 2; } }
+@media (max-width: 600px) { .cards { column-count: 1; column-gap: 0; max-width: 460px; } }
+
+.card {
+  break-inside: avoid;
+  margin: 0 0 24px;
+  border-radius: 6px;
+  background: var(--card-color, #E8D5C4);
+  box-shadow:
+    0 1px 0 rgba(0,0,0,0.04),
+    0 12px 24px -16px rgba(60, 40, 20, 0.35);
+  position: relative;
+  overflow: hidden;
+  transition: transform 280ms ease, box-shadow 280ms ease;
+}
+
+/* Slight scrapbook tilt — alternating per card, removed when open */
+.card:nth-child(3n)   { transform: rotate(-0.6deg); }
+.card:nth-child(3n+1) { transform: rotate(0.4deg); }
+.card:nth-child(3n+2) { transform: rotate(-0.2deg); }
+
+.card:hover { transform: rotate(0) translateY(-2px); box-shadow: 0 1px 0 rgba(0,0,0,0.05), 0 18px 30px -18px rgba(60,40,20,0.5); }
+
+.card[data-state="open"] { transform: rotate(0); }
+
+.card-face {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  padding: 28px 22px 22px;
+  cursor: pointer;
+  font: inherit;
+  position: relative;
+  min-height: 220px;
+}
+
+.card-seal {
+  position: absolute;
+  inset: 0 0 auto auto;
+  width: 70px;
+  height: 70px;
+  margin: 10px;
+  color: var(--ink);
+}
+
+.card-name {
+  font-family: var(--hand);
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--ink);
+  margin-top: 48px;
+  word-break: break-word;
+}
+
+.card-relationship {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--ink-soft);
+  margin-top: 6px;
+  min-height: 1.2em;
+}
+
+.card-cta {
+  font-family: var(--hand);
+  font-size: 22px;
+  color: var(--accent);
+  margin-top: 20px;
+  letter-spacing: 0.03em;
+}
+
+.card-player {
+  padding: 14px 14px 16px;
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(2px);
+}
+
+.card-player video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+  background: #000;
+  box-shadow: 0 4px 12px -6px rgba(0,0,0,0.4);
+}
+
+.card-close {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: var(--ink-soft);
+  font-family: var(--hand);
+  font-size: 22px;
+  cursor: pointer;
+  margin-top: 8px;
+  padding: 4px 8px;
+}
+.card-close:hover { color: var(--accent); }
+
+.card[data-state="open"] .card-face { display: none; }
+.card[data-state="closed"] .card-player { display: none; }
+
+/* ---------- FOOTER ---------- */
+
+.gallery-footer {
+  margin: 72px auto 0;
+  text-align: center;
+  font-family: var(--hand);
+  font-size: 28px;
+  color: var(--ink-soft);
+  max-width: 600px;
+}
+
+/* ---------- ANIMATIONS ---------- */
+
+@keyframes fadeIn { to { opacity: 1; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes noteRise { to { opacity: 1; transform: none; } }
+@keyframes fadeOutScale { to { opacity: 0; transform: scale(0.98); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .note-line, .landing-greeting, .landing-name, .open-link { opacity: 1 !important; transform: none !important; }
+}
